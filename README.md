@@ -1,2 +1,2 @@
-# Simba
-A software to that can read SAS dataset and produce summary statistics as well as frequency and plot
+# Cauchy
+A software to that can read SAS dataset and produce summary statistics, frequency table and plots.
