@@ -34,3 +34,6 @@ At the bottom of poped window, you could choose two numeric variable and produce
 
 Same as bar plot, will produce histogram.
 
+# Example
+
+![Alt text](./Example/Bar Plot.png?raw=true "Optional Title")
