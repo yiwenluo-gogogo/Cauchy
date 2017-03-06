@@ -15,4 +15,22 @@ This function will list all variable find in the dataset and give their frequenc
 
 2)Summary Statisitcs
 
-This
+This function returns summary statistics for all numeric variable found in dataset. Every variable will have six column, which are : number of nonmissing observations, max value, min value, mean, median, number of missing observations.
+
+3)Filter
+
+This feature allow you to subset loaded dataset based on criteria you can specify. All other functions result will be updated to the new subset of dataset. The filter information will be shown at the botton of main window. It also allow user to remove filter.
+
+4)Bar Plot
+
+Will give bar plot based the variable you choose.
+
+
+5)Scatter Plot
+
+At the bottom of poped window, you could choose two numeric variable and produce their scatter plot. On that plot, you can use mouse to circle any one or more data point to see their value. You can also see that data point other variable's value be check additional variable box in the plot setting window.
+
+6)Histogram Plot
+
+Same as bar plot, will produce histogram.
+
