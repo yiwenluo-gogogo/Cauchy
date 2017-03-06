@@ -97,7 +97,7 @@ def fillllllter():
 	global cur_df
 	global cur_df_naasNone
 	Filterwin = Toplevel()
-	Filterwin.geometry('600x160+200+200')
+	Filterwin.geometry('850x160+200+200')
 	Filterlabel1 = ttk.Label(Filterwin, text='Filter One')
 	Filterlabel1.grid(row=0, column=1, padx=5, pady=5)
 	Filterlabel2 = ttk.Label(Filterwin, text='Filter Two')
@@ -303,6 +303,8 @@ def varfreq():
 	treeScroll = ttk.Scrollbar(varfreqwin)
 	treeScroll.pack(side=RIGHT, fill=Y)
 	tree = ttk.Treeview(varfreqwin)
+	style = ttk.Style(varfreqwin)
+	style.configure('Treeview', rowheight=40)  
 	ttk.Style().configure('.', font=('Helvetica', 20),
 						  foreground='black')
 	treeScroll.configure(command=tree.yview)
@@ -345,7 +347,7 @@ def varfreq():
 
 	tree.tag_configure('title', background='white')
 	tree.tag_configure('oddrow', background='lightskyblue')
-	tree.tag_configure('evenrow', background='blanchedalmond')
+	tree.tag_configure('evenrow', background='lightblue')
 	tree.pack(expand=YES, fill=BOTH)
 	treeScroll.config(command=tree.yview)
 	varfreqwin.mainloop()
@@ -363,6 +365,8 @@ def varstat():
 	treeScroll_varstat = ttk.Scrollbar(varstatwin)
 	treeScroll_varstat.pack(side=RIGHT, fill=Y)
 	tree = ttk.Treeview(varstatwin)
+	style = ttk.Style(varstatwin)
+	style.configure('Treeview', rowheight=40)  
 	ttk.Style().configure('.', font=('Helvetica', 20),
 						  foreground='black')
 	treeScroll_varstat.configure(command=tree.yview)
@@ -407,7 +411,7 @@ def varstat():
 			), tags=(('oddrow' if m % 2 == 1 else 'evenrow'), ))
 		m += 1
 	tree.tag_configure('oddrow', background='white')
-	tree.tag_configure('evenrow', background='lightgrey')
+	tree.tag_configure('evenrow', background='lightskyblue')
 	tree.pack(expand=YES, fill=BOTH)
 	treeScroll_varstat.config(command=tree.yview)
 	varstatwin.mainloop()
@@ -562,8 +566,12 @@ def letsplot():
 							  'One or More variables you choose to plot are categorical variables.'
 							  )
 		return
-	xmax = max(cur_df[xvar.get()])
-	ymax = max(cur_df[yvar.get()])
+	cur_xdata = [float(x) for x in cur_df[xvar.get()] if not np.isnan(float(x))]
+	cur_ydata = [float(x) for x in cur_df[yvar.get()] if not np.isnan(float(x))]
+	xmin=min(cur_xdata)
+	xmax=max(cur_xdata)
+	ymin=min(cur_ydata)
+	ymax=max(cur_ydata)	
 	show_data = cur_df.ix[0:, variablelist_select].values.tolist()
 	print 'Finish loading data'
 
@@ -572,8 +580,8 @@ def letsplot():
 
 	columns = variablelist_select
 	columns_length = variablelength_select
-	ax = plt.axes(xlim=(0, 1.2 * float(xmax)), ylim=(0, 1.2
-				  * float(ymax)), autoscale_on=False)
+
+	ax = plt.axes(xlim=(float(xmin)-0.1*abs(float(xmin)),float(xmax)+0.1*abs(float(xmax))), ylim=(float(ymin)-0.1*abs(float(ymin)),float(ymax)+0.1*abs(float(ymax))), autoscale_on=False)
 	lman = LassoManager(ax, data)
 	plt.xlabel(xvar.get())
 	plt.ylabel(yvar.get())
@@ -685,7 +693,7 @@ def scatter_plot():
 	continues_var = [variablelist[i] for i in range(len(variablelist))
 					 if variabletype[i] == 'number']
 	root = Toplevel()
-	root.geometry('%dx%d+%d+%d' % (500, 525, 50, 100))
+	# root.geometry('%dx%d+%d+%d' % (500, 525, 50, 100))
 	root.title('Scatter Plot')
 	xvar = StringVar(root)
 	yvar = StringVar(root)
@@ -697,19 +705,19 @@ def scatter_plot():
 	label_info = Label(root,
 					   text='Select all variables you want to see\n for observations in plot'
 					   , font=('Helvetica', 14))
-	label_info.place(x=5, y=5)
+	label_info.grid(row=1, column=1, padx=5, pady=5)
 
 	label_y = Label(root, text='Y-axis variable:')
-	label_y.place(x=20, y=495)
+	label_y.grid(row=3, column=1, padx=5, pady=5)
 	label_x = Label(root, text='X-axis variable:')
-	label_x.place(x=20, y=465)
+	label_x.grid(row=4, column=1, padx=5, pady=5)
 	optionx = OptionMenu(root, yvar, *choices)
-	optionx.place(x=120, y=490)
+	optionx.grid(row=3, column=2, padx=5, pady=5)
 	optiony = OptionMenu(root, xvar, *choices)
-	optiony.place(x=120, y=460)
+	optiony.grid(row=4, column=2, padx=5, pady=5)
 
 	Button(root, text="Let's plot!",
-		   command=letsplot).place(x=250, y=475)
+		   command=letsplot).grid(row=3, column=3, padx=5, pady=5,rowspan=2)
 	numofcol = int(len(variablelist) / 15) + 1
 	checkbutdict = {}
 	for i in range(numofcol):
@@ -717,7 +725,7 @@ def scatter_plot():
 				len(variablelist))]
 		lng = Checkbar(root, curlist, side=TOP, anchor=W,
 					   dict=checkbutdict)
-		lng.pack(side=LEFT, fill=X)
+		lng.grid(row=2, column=1, padx=5, pady=5,columnspan=numofcol)
 	root.mainloop()
 
 
@@ -803,7 +811,7 @@ class ThemeDemo(ttk.Frame):
 		QC_text.grid(row=0,column=1,sticky=W + E + N + S,columnspan=2,padx=10,pady=5,)
 		b = ttk.Button(QC, text='Load SAS Dataset', command=loadsas)
 		b.grid(row=1, column=1, sticky=W + E + N + S, padx=10, pady=5)
-		b = ttk.Button(QC, text='Frenquency Table', command=varfreq)
+		b = ttk.Button(QC, text='Frequency Table', command=varfreq)
 		b.grid(row=2, column=1, sticky=W + E + N + S, padx=10, pady=5)
 		b = ttk.Button(QC, text='Summary Statistics', command=varstat)
 		b.grid(row=3, column=1, sticky=W + E + N + S, padx=10, pady=5)
