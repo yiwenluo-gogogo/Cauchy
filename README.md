@@ -35,5 +35,11 @@ At the bottom of poped window, you could choose two numeric variable and produce
 Same as bar plot, will produce histogram.
 
 # Example
-
+![Alt text](./Example/Main Window.png?raw=true "Optional Title")
+![Alt text](./Example/Choose dataset to load.png?raw=true "Optional Title")
+![Alt text](./Example/Variable Frequency.png?raw=true "Optional Title")
+![Alt text](./Example/Variable Statistics.png?raw=true "Optional Title")
+![Alt text](./Example/Filter.png?raw=true "Optional Title")
 ![Alt text](./Example/Bar Plot.png?raw=true "Optional Title")
+![Alt text](./Example/Scatter Plot Setting.png?raw=true "Optional Title")
+![Alt text](./Example/Scatter Plot.png?raw=true "Optional Title")
