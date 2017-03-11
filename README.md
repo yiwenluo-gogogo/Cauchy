@@ -1,7 +1,5 @@
 # Cauchy
 
-[I'm an inline-style link](./Cauchy.zip)
-
 # Overview
 
 Cauchy is small application written by Yiwen Luo to read SAS dataset and produce summary statistics, frequency table and plots. No SAS software is required to run this application. This is a project for me to practice python plotting and tkinter interface.
